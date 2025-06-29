@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FocusHub – Ultimate Productivity Workspace</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Favicon & Touch Icons -->
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" sizes="180x180" href="/Landing-page/Images/WEB logo.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/Landing-page/Images/WEB logo.svg">
+  <link rel="icon" type="image/png" sizes="16x16" href="/Landing-page/Images/WEB logo.svg">
+  <link rel="manifest" href="/site.webmanifest">
+</head>
+<body>
+
+  <!-- Background Glow Effects -->
+  <div class="glow glow-1" aria-hidden="true"></div>
+  <div class="glow glow-2" aria-hidden="true"></div>
+  <div class="glow glow-3" aria-hidden="true"></div>
+
+  <!-- Particle Background -->
+  <div id="particles-js" aria-hidden="true"></div>
+
+  <!-- Header -->
+  <header class="header container" role="banner">
+    <a href="#" class="logo-link">
+      <img src="Images/FocusHub-Logo.png" alt="FocusHub Logo" class="logo" width="160" height="40">
+    </a>
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
+      <a href="#features">Features</a>
+      <a href="#testimonials">Testimonials</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#" class="login-link">Login</a>
+    </nav>
+    <button class="btn" aria-label="Get Started with FocusHub">Get Started</button>
+  </header>
+
+  <!-- Hero Section -->
+  <main>
+    <section class="hero container" id="hero" aria-labelledby="hero-heading">
+      <div class="hero-text">
+        <h1 class="tag-line" id="hero-heading">Stay focused. Get more done</h1>
+        <p class="sub-line">The ultimate workspace for creatives who want clarity</p>
+        <button class="btn" aria-label="Try FocusHub for free">Try for free</button>
+      </div>
+      <img src="Images/HeroSection-img.png"
+           alt="FocusHub app interface showing productivity features like task list, time tracking, and analytics"
+           class="hero-img" width="1268" height="720" loading="lazy">
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features container" aria-labelledby="features-heading">
+      <h2 class="tag-line" id="features-heading">Powerful Features</h2>
+      <div class="features-grid">
+        <div class="feature-card feature-card-1">
+          <div class="feature-text">
+            <h3>Minimalist Dashboard</h3>
+            <p>Clean interface that helps you focus on what matters most without distractions.</p>
+          </div>
+          <img src="Images/Minimalist Dashboard 2.png"
+               alt="Screenshot of Minimalist Dashboard interface"
+               class="feature-img" width="130" height="130" loading="lazy">
+        </div>
+        <div class="feature-card feature-card-2">
+          <div class="feature-text">
+            <h3>Time Tracking</h3>
+            <p>Automatically track time spent on projects with detailed reports.</p>
+          </div>
+          <img src="Images/Time Tracking 2.png"
+               alt="Screenshot of Time Tracking dashboard"
+               class="feature-img" width="130" height="130" loading="lazy">
+        </div>
+        <div class="feature-card feature-card-3">
+          <div class="feature-text">
+            <h3>Analytics Overview</h3>
+            <p>Get insights into your productivity patterns and work habits.</p>
+          </div>
+          <img src="Images/Analytics Overview 2.png"
+               alt="Screenshot of Analytics Overview dashboard"
+               class="feature-img" width="130" height="130" loading="lazy">
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="User-view container" aria-labelledby="testimonials-heading">
+      <h2 class="tag-line" id="testimonials-heading">What Our Users Say</h2>
+      <div class="user-grid">
+        <div class="user-card">
+          <img src="Images/JD.png" class="user-img" alt="Jane Doe profile picture" width="50" height="50" loading="lazy">
+          <h3>Jane Deo</h3>
+          <p>"FocusHub completely transformed how I manage my creative projects. The minimalist interface keeps me focused."</p>
+        </div>
+        <div class="user-card">
+          <img src="Images/JS.png" class="user-img" alt="John Smith profile picture" width="50" height="50" loading="lazy">
+          <h3>John Smith</h3>
+          <p>"I've tried dozens of productivity apps, but FocusHub is the only one that actually helped me get more done."</p>
+        </div>
+        <div class="user-card">
+          <img src="Images/AM.png" class="user-img" alt="Alex Morgan profile picture" width="50" height="50" loading="lazy">
+          <h3>Alex Morgan</h3>
+          <p>"The time tracking features gave me insights into my work patterns that helped me double my productivity."</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="pricing container" aria-labelledby="pricing-heading">
+      <h2 class="tag-line" id="pricing-heading">Simple, Transparent Pricing</h2>
+      <div class="pricing-grid">
+        <!-- Free Plan -->
+        <div class="pricing-card">
+          <div class="pricing-top">
+            <img src="Images/Free Pricing.png" class="pricing-logo" alt="Free Plan icon" width="80" height="80" loading="lazy">
+            <h2>Free</h2>
+            <p>Ideal for individuals starting their focus journey.</p>
+            <div class="price">₹0 <span>/mo</span></div>
+          </div>
+          <button class="cta" aria-label="Start Free Plan">Start For Free</button>
+          <div class="perks">
+            <p class="included">Access to minimalist dashboard</p>
+            <p class="included">Basic time tracking</p>
+            <p>1 Workspace</p>
+            <p>No analytics</p>
+            <p>Limited customization</p>
+            <p>No file storage</p>
+          </div>
+        </div>
+
+        <!-- Basic Plan -->
+        <div class="pricing-card">
+          <div class="pricing-top">
+            <img src="Images/Basic Pricing.png" class="pricing-logo" alt="Basic Plan icon" width="80" height="80" loading="lazy">
+            <h2>Basic</h2>
+            <p>For growing teams and power users creativity.</p>
+            <div class="price">₹249 <span>/mo</span></div>
+          </div>
+          <div class="most-popular-badge" role="status" aria-label="Most popular plan">
+            <span>Most Popular</span>
+          </div>
+          <button class="cta-special" aria-label="Get Basic Plan">Get this plan</button>
+          <div class="perks">
+            <p class="included">Everything in Free</p>
+            <p class="included">Unlimited Workspaces</p>
+            <p class="included">Daily focus summaries</p>
+            <p class="included">Theme customization</p>
+            <p>No advanced analytics</p>
+            <p>No cloud sync</p>
+          </div>
+        </div>
+
+        <!-- Pro Plan -->
+        <div class="pricing-card">
+          <div class="pricing-top">
+            <img src="Images/Pro Pricing.png" class="pricing-logo" alt="Pro Plan icon" width="80" height="80" loading="lazy">
+            <h2>Pro</h2>
+            <p>Built for professionals who demand clarity at scale.</p>
+            <div class="price">₹499 <span>/mo</span></div>
+          </div>
+          <button class="cta" aria-label="Get Pro Plan">Get this Plan</button>
+          <div class="perks">
+            <p class="included">All Basic features</p>
+            <p class="included">Advanced analytics & insights</p>
+            <p class="included">Cloud sync across devices</p>
+            <p class="included">Project templates</p>
+            <p class="included">File uploads & backups</p>
+            <p class="included">Priority support</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer-container">
+      <div class="footer-logo">
+        <a href="#" class="footer-logo-link">
+          <img src="Images/FocusHub-Logo.png" alt="FocusHub Footer Logo" class="footer-logo-img" />
+        </a>
+        <p>We build stunning websites with modern design and powerful animations.</p>
+      </div>
+      <div class="footer-links">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Features</a></li>
+          <li><a href="#">Pricing</a></li>
+          <li><a href="#">Testimonials</a></li>
+        </ul>
+      </div>
+      <div class="footer-contact">
+        <h3>Contact Us</h3>
+        <p>Email: <a href="mailto:plunkerdiscord21@gmail.com">plunkerdiscord21@gmail.com</a></p>
+        <p>Phone: +91 9322816921</p>
+        <div class="social-icons" role="navigation" aria-label="Social media links">
+          <a href="#" aria-label="Follow us on Facebook"><img src=" https://cdn.jsdelivr.net/gh/devicons/devicon/icons/facebook/facebook-original.svg " alt="Facebook" /></a>
+          <a href="#" aria-label="Follow us on Twitter"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/twitter/twitter-original.svg " alt="Twitter" /></a>
+          <a href="https://www.instagram.com/_anujdighe/ " target="_blank" aria-label="Follow us on Instagram"><img src="Images/instagram-icon.png" alt="Instagram" /></a>
+          <a href="https://www.linkedin.com/in/anuj-dighe-a152b2354/ " target="_blank" aria-label="Connect on LinkedIn"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg " alt="LinkedIn" /></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 YourWebsite. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Particle.js Script -->
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js "></script>
+  <script>
+    document.addEventListener("mousemove", function(e) {
+      const x = e.clientX / window.innerWidth;
+      const y = e.clientY / window.innerHeight;
+      const glows = document.querySelectorAll(".glow");
+      glows.forEach((glow, i) => {
+        const speed = (i + 1) * 0.005;
+        const offsetX = (window.innerWidth - glow.offsetWidth) * (x * speed);
+        const offsetY = (window.innerHeight - glow.offsetHeight) * (y * speed);
+        glow.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+      });
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+      particlesJS('particles-js', {
+        "particles": {
+          "number": { "value": 100, "density": { "enable": true, "value_area": 800 } },
+          "color": { "value": ["#7B2DFF", "#00F7FF", "#FF2D7B"] },
+          "shape": { "type": "circle" },
+          "opacity": { "value": 0.5, "random": true, "anim": { "enable": true, "speed": 1 } },
+          "size": { "value": 3, "random": true, "anim": { "enable": true, "speed": 2 } },
+          "line_linked": { "enable": false },
+          "move": { "enable": true, "speed": 1, "direction": "none", "random": true }
+        },
+        "interactivity": {
+          "detect_on": "canvas",
+          "events": {
+            "onhover": { "enable": true, "mode": "repulse" },
+            "onclick": { "enable": true, "mode": "push" },
+            "resize": true
+          }
+        },
+        "retina_detect": true
+      });
+
+      const canvas = document.querySelector('#particles-js canvas');
+      const ctx = canvas.getContext('2d');
+      const particles = [];
+      const mouse = { x: null, y: null, stationary: false, stationaryTime: 0 };
+      const colors = ['#7B2DFF', '#00F7FF', '#FF2D7B'];
+      const particleCount = 20;
+      let clickCount = 0;
+      let lastClickTime = 0;
+      let burstActive = false;
+      let burstTime = 0;
+
+      for (let i = 0; i < particleCount; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          size: Math.random() * 3 + 1,
+          baseSize: Math.random() * 3 + 1,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          speedX: Math.random() * 2 - 1,
+          speedY: Math.random() * 2 - 1,
+          distance: Math.random() * 50 + 50,
+          originalX: null,
+          originalY: null,
+          forming: false,
+          scattering: false
+        });
+      }
+
+      window.addEventListener('mousemove', (e) => {
+        mouse.x = e.x;
+        mouse.y = e.y;
+        mouse.stationary = false;
+        mouse.stationaryTime = 0;
+      });
+
+      // Triple Click Detection Fixed
+      window.addEventListener('click', (e) => {
+        const now = Date.now();
+        if (now - lastClickTime < 300) {
+          clickCount++;
+          if (clickCount >= 3) { // Changed from 2 to 3
+            triggerBurst(e.x, e.y);
+            clickCount = 0;
+          }
+        } else {
+          clickCount = 0;
+        }
+        lastClickTime = now;
+      });
+
+      function triggerBurst(x, y) {
+        burstActive = true;
+        burstTime = Date.now();
+        particles.forEach(p => {
+          p.scattering = true;
+          const angle = Math.atan2(p.y - y, p.x - x);
+          const force = 10 + Math.random() * 10;
+          p.speedX = Math.cos(angle) * force;
+          p.speedY = Math.sin(angle) * force;
+        });
+      }
+
+      function animateParticles() {
+        if (!mouse.stationary) {
+          mouse.stationaryTime = Date.now();
+          mouse.stationary = true;
+        }
+        const isForming = Date.now() - mouse.stationaryTime > 1000 && mouse.x && mouse.y;
+        const burstDuration = Date.now() - burstTime;
+
+        if (burstActive && burstDuration > 1000) {
+          burstActive = false;
+          particles.forEach(p => {
+            p.scattering = false;
+            p.speedX = Math.random() * 2 - 1;
+            p.speedY = Math.random() * 2 - 1;
+          });
+        }
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(p => {
+          if (burstActive && p.scattering) {
+            p.x += p.speedX;
+            p.y += p.speedY;
+            p.size = Math.max(0.5, p.baseSize * (1 - burstDuration / 1000));
+          } else if (isForming && !burstActive) {
+            if (!p.forming) {
+              p.originalX = p.x;
+              p.originalY = p.y;
+              p.forming = true;
+            }
+            const dx = mouse.x - p.x;
+            const dy = mouse.y - p.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            const speed = 0.1;
+            if (distance > 10) {
+              p.x += dx * speed;
+              p.y += dy * speed;
+            }
+            p.size = p.baseSize * (1 + 2 * (1 - distance / 100));
+          } else {
+            if (p.forming) {
+              const dx = p.originalX - p.x;
+              const dy = p.originalY - p.y;
+              const distance = Math.sqrt(dx * dx + dy * dy);
+              const speed = 0.05;
+              if (distance > 2) {
+                p.x += dx * speed;
+                p.y += dy * speed;
+              } else {
+                p.forming = false;
+              }
+            } else {
+              p.x += p.speedX;
+              p.y += p.speedY;
+            }
+            p.size = p.baseSize;
+          }
+
+          if (p.x < 0 || p.x > canvas.width) p.speedX *= -1;
+          if (p.y < 0 || p.y > canvas.height) p.speedY *= -1;
+
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+          ctx.fillStyle = p.color;
+          ctx.fill();
+
+          const gradient = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size * 3);
+          gradient.addColorStop(0, p.color);
+          gradient.addColorStop(1, 'transparent');
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.size * 3, 0, Math.PI * 2);
+          ctx.fillStyle = gradient;
+          ctx.fill();
+        });
+
+        if (isForming && !burstActive) {
+          const formingParticles = particles.filter(p => p.forming);
+          if (formingParticles.length > 0) {
+            const centerX = mouse.x;
+            const centerY = mouse.y;
+            const avgSize = formingParticles.reduce((sum, p) => sum + p.size, 0) / formingParticles.length;
+            const gradient = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, avgSize * 10);
+            gradient.addColorStop(0, 'rgba(123, 45, 255, 0.8)');
+            gradient.addColorStop(1, 'transparent');
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, avgSize * 10, 0, Math.PI * 2);
+            ctx.fillStyle = gradient;
+            ctx.fill();
+          }
+        }
+
+        requestAnimationFrame(animateParticles);
+      }
+
+      animateParticles();
+    });
+  </script>
+</body>
+</html>
