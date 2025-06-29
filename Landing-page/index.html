@@ -6,7 +6,6 @@
   <title>FocusHub – Ultimate Productivity Workspace</title>
   <link rel="stylesheet" href="styles.css" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-
   <!-- Favicon & Touch Icons -->
   <link rel="icon" href="/favicon.ico" type="image/x-icon">
   <link rel="apple-touch-icon" sizes="180x180" href="/Landing-page/Images/WEB logo.svg">
@@ -15,14 +14,13 @@
   <link rel="manifest" href="/site.webmanifest">
 </head>
 <body>
-
   <!-- Background Glow Effects -->
   <div class="glow glow-1" aria-hidden="true"></div>
   <div class="glow glow-2" aria-hidden="true"></div>
   <div class="glow glow-3" aria-hidden="true"></div>
 
-  <!-- Particle Background -->
-  <div id="particles-js" aria-hidden="true"></div>
+  <!-- Custom Particle Canvas -->
+  <canvas id="particleCanvas" aria-hidden="true"></canvas>
 
   <!-- Header -->
   <header class="header container" role="banner">
@@ -123,13 +121,12 @@
           <div class="perks">
             <p class="included">Access to minimalist dashboard</p>
             <p class="included">Basic time tracking</p>
-            <p>1 Workspace</p>
+            <p class="included">1 Workspace</p>
             <p>No analytics</p>
             <p>Limited customization</p>
             <p>No file storage</p>
           </div>
         </div>
-
         <!-- Basic Plan -->
         <div class="pricing-card">
           <div class="pricing-top">
@@ -151,7 +148,6 @@
             <p>No cloud sync</p>
           </div>
         </div>
-
         <!-- Pro Plan -->
         <div class="pricing-card">
           <div class="pricing-top">
@@ -209,200 +205,156 @@
     </div>
   </footer>
 
-  <!-- Particle.js Script -->
-  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js "></script>
+  <!-- Custom Particle Animation Script -->
   <script>
-    document.addEventListener("mousemove", function(e) {
-      const x = e.clientX / window.innerWidth;
-      const y = e.clientY / window.innerHeight;
-      const glows = document.querySelectorAll(".glow");
-      glows.forEach((glow, i) => {
-        const speed = (i + 1) * 0.005;
-        const offsetX = (window.innerWidth - glow.offsetWidth) * (x * speed);
-        const offsetY = (window.innerHeight - glow.offsetHeight) * (y * speed);
-        glow.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
-      });
-    });
+    const canvas = document.getElementById("particleCanvas");
+    const ctx = canvas.getContext("2d");
 
-    document.addEventListener('DOMContentLoaded', function() {
-      particlesJS('particles-js', {
-        "particles": {
-          "number": { "value": 100, "density": { "enable": true, "value_area": 800 } },
-          "color": { "value": ["#7B2DFF", "#00F7FF", "#FF2D7B"] },
-          "shape": { "type": "circle" },
-          "opacity": { "value": 0.5, "random": true, "anim": { "enable": true, "speed": 1 } },
-          "size": { "value": 3, "random": true, "anim": { "enable": true, "speed": 2 } },
-          "line_linked": { "enable": false },
-          "move": { "enable": true, "speed": 1, "direction": "none", "random": true }
-        },
-        "interactivity": {
-          "detect_on": "canvas",
-          "events": {
-            "onhover": { "enable": true, "mode": "repulse" },
-            "onclick": { "enable": true, "mode": "push" },
-            "resize": true
-          }
-        },
-        "retina_detect": true
-      });
+    let width, height;
+    let mouse = { x: 0, y: 0, isStill: false, stillTimer: null };
+    let particles = [];
+    const colors = ["#7B2DFF", "#00F7FF", "#FF2D7B"];
+    const PARTICLE_COUNT = window.innerWidth < 768 ? 60 : 120;
 
-      const canvas = document.querySelector('#particles-js canvas');
-      const ctx = canvas.getContext('2d');
-      const particles = [];
-      const mouse = { x: null, y: null, stationary: false, stationaryTime: 0 };
-      const colors = ['#7B2DFF', '#00F7FF', '#FF2D7B'];
-      const particleCount = 20;
-      let clickCount = 0;
-      let lastClickTime = 0;
-      let burstActive = false;
-      let burstTime = 0;
+    function resizeCanvas() {
+      width = (canvas.width = window.innerWidth);
+      height = (canvas.height = window.innerHeight);
+    }
 
-      for (let i = 0; i < particleCount; i++) {
+    function createParticles() {
+      particles = [];
+      for (let i = 0; i < PARTICLE_COUNT; i++) {
         particles.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
+          x: Math.random() * width,
+          y: Math.random() * height,
+          vx: (Math.random() - 0.5) * 0.5,
+          vy: (Math.random() - 0.5) * 0.5,
           size: Math.random() * 3 + 1,
-          baseSize: Math.random() * 3 + 1,
           color: colors[Math.floor(Math.random() * colors.length)],
-          speedX: Math.random() * 2 - 1,
-          speedY: Math.random() * 2 - 1,
-          distance: Math.random() * 50 + 50,
-          originalX: null,
-          originalY: null,
-          forming: false,
-          scattering: false
+          alpha: Math.random() * 0.5 + 0.3,
+          isGathering: false,
+          targetX: undefined,
+          targetY: undefined,
         });
       }
+    }
 
-      window.addEventListener('mousemove', (e) => {
-        mouse.x = e.x;
-        mouse.y = e.y;
-        mouse.stationary = false;
-        mouse.stationaryTime = 0;
-      });
+    function drawParticle(particle) {
+      ctx.globalAlpha = particle.alpha;
+      ctx.fillStyle = particle.color;
+      ctx.shadowColor = particle.color;
+      ctx.shadowBlur = 10;
+      ctx.beginPath();
+      ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.shadowBlur = 0;
+    }
 
-      // Triple Click Detection Fixed
-      window.addEventListener('click', (e) => {
-        const now = Date.now();
-        if (now - lastClickTime < 300) {
-          clickCount++;
-          if (clickCount >= 3) { // Changed from 2 to 3
-            triggerBurst(e.x, e.y);
-            clickCount = 0;
-          }
+    function updateParticles() {
+      particles.forEach((p) => {
+        if (p.isGathering && p.targetX !== undefined && p.targetY !== undefined) {
+          const dx = p.targetX - p.x;
+          const dy = p.targetY - p.y;
+          p.x += dx * 0.05;
+          p.y += dy * 0.05;
         } else {
-          clickCount = 0;
+          p.x += p.vx;
+          p.y += p.vy;
+
+          const dx = mouse.x - p.x;
+          const dy = mouse.y - p.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+
+          if (distance < 150) {
+            const force = (150 - distance) / 150 * 0.002;
+            p.vx += dx * force;
+            p.vy += dy * force;
+          }
         }
-        lastClickTime = now;
+
+        if (p.x < 0 || p.x > width) p.vx *= -1;
+        if (p.y < 0 || p.y > height) p.vy *= -1;
+
+        p.x = Math.max(0, Math.min(width, p.x));
+        p.y = Math.max(0, Math.min(height, p.y));
+
+        p.vx *= 0.99;
+        p.vy *= 0.99;
+      });
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, width, height);
+      updateParticles();
+      particles.forEach(drawParticle);
+      requestAnimationFrame(animate);
+    }
+
+    function handleMouseMove(e) {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+      mouse.isStill = false;
+      clearTimeout(mouse.stillTimer);
+
+      particles.forEach((p) => {
+        p.isGathering = false;
       });
 
-      function triggerBurst(x, y) {
-        burstActive = true;
-        burstTime = Date.now();
-        particles.forEach(p => {
-          p.scattering = true;
-          const angle = Math.atan2(p.y - y, p.x - x);
-          const force = 10 + Math.random() * 10;
-          p.speedX = Math.cos(angle) * force;
-          p.speedY = Math.sin(angle) * force;
+      mouse.stillTimer = setTimeout(() => {
+        mouse.isStill = true;
+        particles.forEach((p) => {
+          p.isGathering = true;
+          p.targetX = mouse.x + (Math.random() - 0.5) * 100;
+          p.targetY = mouse.y + (Math.random() - 0.5) * 100;
         });
+      }, 1000);
+    }
+
+    let clickCount = 0;
+    let clickTimer;
+
+    function handleClick(e) {
+      clickCount++;
+      if (clickCount === 1) {
+        clickTimer = setTimeout(() => {
+          clickCount = 0;
+        }, 400);
+      } else if (clickCount === 3) {
+        clearTimeout(clickTimer);
+        clickCount = 0;
+        handleTripleClick(e);
       }
+    }
 
-      function animateParticles() {
-        if (!mouse.stationary) {
-          mouse.stationaryTime = Date.now();
-          mouse.stationary = true;
-        }
-        const isForming = Date.now() - mouse.stationaryTime > 1000 && mouse.x && mouse.y;
-        const burstDuration = Date.now() - burstTime;
+    function handleTripleClick(e) {
+      const clickX = e.clientX;
+      const clickY = e.clientY;
 
-        if (burstActive && burstDuration > 1000) {
-          burstActive = false;
-          particles.forEach(p => {
-            p.scattering = false;
-            p.speedX = Math.random() * 2 - 1;
-            p.speedY = Math.random() * 2 - 1;
-          });
-        }
+      particles.forEach((p) => {
+        const dx = p.x - clickX;
+        const dy = p.y - clickY;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        const force = Math.max(0, 200 - distance) / 200 * 3;
 
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        particles.forEach(p => {
-          if (burstActive && p.scattering) {
-            p.x += p.speedX;
-            p.y += p.speedY;
-            p.size = Math.max(0.5, p.baseSize * (1 - burstDuration / 1000));
-          } else if (isForming && !burstActive) {
-            if (!p.forming) {
-              p.originalX = p.x;
-              p.originalY = p.y;
-              p.forming = true;
-            }
-            const dx = mouse.x - p.x;
-            const dy = mouse.y - p.y;
-            const distance = Math.sqrt(dx * dx + dy * dy);
-            const speed = 0.1;
-            if (distance > 10) {
-              p.x += dx * speed;
-              p.y += dy * speed;
-            }
-            p.size = p.baseSize * (1 + 2 * (1 - distance / 100));
-          } else {
-            if (p.forming) {
-              const dx = p.originalX - p.x;
-              const dy = p.originalY - p.y;
-              const distance = Math.sqrt(dx * dx + dy * dy);
-              const speed = 0.05;
-              if (distance > 2) {
-                p.x += dx * speed;
-                p.y += dy * speed;
-              } else {
-                p.forming = false;
-              }
-            } else {
-              p.x += p.speedX;
-              p.y += p.speedY;
-            }
-            p.size = p.baseSize;
-          }
+        p.vx += (dx / distance) * force;
+        p.vy += (dy / distance) * force;
+        p.isGathering = false;
+      });
+    }
 
-          if (p.x < 0 || p.x > canvas.width) p.speedX *= -1;
-          if (p.y < 0 || p.y > canvas.height) p.speedY *= -1;
-
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-          ctx.fillStyle = p.color;
-          ctx.fill();
-
-          const gradient = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size * 3);
-          gradient.addColorStop(0, p.color);
-          gradient.addColorStop(1, 'transparent');
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, p.size * 3, 0, Math.PI * 2);
-          ctx.fillStyle = gradient;
-          ctx.fill();
-        });
-
-        if (isForming && !burstActive) {
-          const formingParticles = particles.filter(p => p.forming);
-          if (formingParticles.length > 0) {
-            const centerX = mouse.x;
-            const centerY = mouse.y;
-            const avgSize = formingParticles.reduce((sum, p) => sum + p.size, 0) / formingParticles.length;
-            const gradient = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, avgSize * 10);
-            gradient.addColorStop(0, 'rgba(123, 45, 255, 0.8)');
-            gradient.addColorStop(1, 'transparent');
-            ctx.beginPath();
-            ctx.arc(centerX, centerY, avgSize * 10, 0, Math.PI * 2);
-            ctx.fillStyle = gradient;
-            ctx.fill();
-          }
-        }
-
-        requestAnimationFrame(animateParticles);
-      }
-
-      animateParticles();
+    window.addEventListener("resize", () => {
+      resizeCanvas();
+      createParticles();
     });
+
+    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("click", handleClick);
+
+    // Initialize
+    resizeCanvas();
+    createParticles();
+    animate();
   </script>
+
 </body>
 </html>
